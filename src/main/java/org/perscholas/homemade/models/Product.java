@@ -34,7 +34,7 @@ public class Product {
     String category;
 
     @NonNull
-    float price;
+    double price;
 
     @NonNull
     Blob image;
@@ -42,13 +42,17 @@ public class Product {
     @NonNull
     Date date;
 
-    @NonNull
-    Time time;
-
     @ManyToOne
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
+
+    public Product(@NonNull String name, @NonNull String category, @NonNull double price, @NonNull Date date) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.date = date;
+    }
 
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Order> orders = new LinkedHashSet<>();

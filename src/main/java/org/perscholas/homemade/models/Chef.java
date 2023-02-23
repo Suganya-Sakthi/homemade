@@ -48,6 +48,16 @@ public class Chef {
     @NonNull
     int zipcode;
 
+    public Chef(@NonNull String name, @NonNull String email, @NonNull String password, @NonNull String phoneNumber, @NonNull String address, @NonNull String city, String state, @NonNull int zipcode) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
 
     @ToString.Exclude
     @OneToMany(mappedBy = "chef", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)

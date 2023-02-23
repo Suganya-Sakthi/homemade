@@ -38,11 +38,8 @@ public class HomeController {
     }
 
     @GetMapping("/index")
-    public String model(Model model, HttpServletRequest httpServletRequest){
-        log.warn(model.getAttribute("msg").toString());
-        HttpSession session = httpServletRequest.getSession();
-        log.warn(session.getId());
-        session.setAttribute("msg", "changed in index method!!");
+    public String showIndex(Model model){
+        model.addAttribute("products",productRepoI.findAll());
         return "index";
     }
 
