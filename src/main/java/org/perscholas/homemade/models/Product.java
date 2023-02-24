@@ -5,10 +5,12 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -40,14 +42,14 @@ public class Product {
     Blob image;
 
     @NonNull
-    Date date;
+    LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
 
-    public Product(@NonNull String name, @NonNull String category, @NonNull double price, @NonNull Date date) {
+    public Product(@NonNull String name, @NonNull String category, @NonNull double price, @NonNull LocalDate date) {
         this.name = name;
         this.category = category;
         this.price = price;

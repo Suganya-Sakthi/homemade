@@ -12,10 +12,12 @@ import org.perscholas.homemade.models.Chef;
 import org.perscholas.homemade.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 import static java.util.Calendar.AM;
 
@@ -54,11 +56,11 @@ public class MyCommandLineRunner implements CommandLineRunner {
         chefRepoI.saveAndFlush(c3);
         chefRepoI.saveAndFlush(c4);
 
-        Product p1=new Product("Pasta","Italian",10.00,new Date(2023-02-25));
-        Product p2=new Product("Chicken Burger","American",20.00,new Date(2023-02-23));
-        Product p3=new Product("Chicken Sandwich","American",15.00,new Date(2023-02-26));
-        Product p4=new Product("Samosa","Indian",10.00,new Date(2023-02-23));
-        Product p5=new Product("Salad","American",10.00,new Date(2023-02-27));
+        Product p1=new Product("Pasta","Italian",10.00,LocalDate.of(2023,03,23));
+        Product p2=new Product("Chicken Burger","American",20.00, LocalDate.of(2023,02,23));
+        Product p3=new Product("Chicken Sandwich","American",15.00,LocalDate.of(2023,02,26));
+        Product p4=new Product("Samosa","Indian",10.00,LocalDate.of(2023,02,23));
+        Product p5=new Product("Salad","American",10.00,LocalDate.of(2023,02,27));
 
         productRepoI.saveAndFlush(p1);
         productRepoI.saveAndFlush(p2);
