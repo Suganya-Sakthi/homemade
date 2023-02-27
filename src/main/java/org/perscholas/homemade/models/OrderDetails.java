@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -19,7 +18,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Order {
+public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
@@ -45,7 +44,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
+        OrderDetails order = (OrderDetails) o;
         return quantity == order.quantity && Float.compare(order.totalPrice, totalPrice) == 0 && Objects.equals(id, order.id) && Objects.equals(customer, order.customer) && Objects.equals(products, order.products);
     }
 

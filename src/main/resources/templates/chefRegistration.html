@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <!-- Head-->
 <div th:replace="fragments/head :: head"/>
 <body style="background-color:lightblue;">
@@ -7,31 +7,153 @@
 <!-- Header-->
 <div th:replace="fragments/header :: header"/>
 <!-- Section-->
-<div class="container">
+<section class="h-100" style="background-color:lightblue;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img alt="Sample photo"
+                                 class="img-fluid"
+                                 src="./images/chef4.jpg"
+                            />
+
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase">Chef registration form</h3>
+                                <form method="post" th:action="@{/register}">
+                                    <div class="row">
+                                        <div class="col-md-7 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="name">Name</label>
+                                                <input class="form-control form-control-lg" id="name" name="name"
+                                                       required
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-10 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="email">Email</label>
+                                                <input class="form-control form-control-lg" name="email" id="email" type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 mb-4">
+                                            <label for="password">Password:</label>
+                                            <input class="form-control" id="password" name="password" required
+                                                   type="password">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 mb-4">
+                                            <label for="phoneNumber">Phone Number:</label>
+                                            <input class="form-control" id="phoneNumber" name="phoneNumber"
+                                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                                   required type="tel">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-10 mb-4">
+                                            <label for="address">Address:</label>
+                                            <input class="form-control" id="address" name="address" required
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 mb-4">
+                                            <label for="city">City:</label>
+                                            <select class="form-control" id="city" name="city" required>
+                                                <option value="">--Select City--</option>
+                                                <option value="troy">Troy</option>
+                                                <option value="sterlingheights">Sterling Heights</option>
+                                                <option value="dallas">Dallas</option>
+                                                <option value="houston">Houston</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 mb-4">
+                                            <label for="state">State:</label>
+                                            <select class="form-control" id="state" name="state" required>
+                                                <option value="">--Select State--</option>
+                                                <option value="michigan">Michigan</option>
+                                                <option value="texas">Texas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 mb-4">
+                                            <label for="zipcode">Zipcode:</label>
+                                            <input class="form-control" id="zipcode" name="zipcode" pattern="[0-9]{5}"
+                                                   required type="text">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit" value="Submit">Sign In</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<div class="container">
     <h1>Chef Registration</h1>
-    <form th:action="@{/register}" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
-
-        <label for="zipcode">Zipcode:</label>
-        <input type="text" id="zipcode" name="zipcode" pattern="[0-9]{5}" required>
-
-        <input type="submit" value="Submit">
+    <form method="post" th:action="@{/register}">
+        <div class="form-group col-md-4">
+            <label for="name">Name:</label>
+            <input class="form-control" id="name" name="name" required type="text">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email">Email:</label>
+            <input class="form-control" id="email" name="email" required type="email">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="password">Password:</label>
+            <input class="form-control" id="password" name="password" required type="password">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="phoneNumber">Phone Number:</label>
+            <input class="form-control" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                   required type="tel">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="address">Address:</label>
+            <input class="form-control" id="address" name="address" required type="text">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="city">State:</label>
+            <select class="form-control" id="city" name="city" required>
+                <option value="">&#45;&#45;Select City&#45;&#45;</option>
+                <option value="troy">Troy</option>
+                <option value="sterlingheights">Sterling Heights</option>
+                <option value="dallas">Dallas</option>
+                <option value="houston">Houston</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="state">State:</label>
+            <select class="form-control" id="state" name="state" required>
+                <option value="">&#45;&#45;Select State&#45;&#45;</option>
+                <option value="michigan">Michigan</option>
+                <option value="texas">Texas</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="zipcode">Zipcode:</label>
+            <input class="form-control" id="zipcode" name="zipcode" pattern="[0-9]{5}" required type="text">
+        </div>
+            <button class="btn btn-primary" type="submit" value="Submit">Sign In</button>
     </form>
 </div>
-</section>
+</section>-->
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>

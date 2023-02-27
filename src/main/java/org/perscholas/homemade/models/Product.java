@@ -5,11 +5,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.Blob;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -57,7 +55,7 @@ public class Product {
     }
 
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    private Set<Order> orders = new LinkedHashSet<>();
+    private Set<OrderDetails> orders = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

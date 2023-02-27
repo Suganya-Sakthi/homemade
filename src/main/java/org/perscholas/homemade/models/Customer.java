@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -33,6 +34,6 @@ public class Customer {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> orders = new LinkedHashSet<>();
+    private Set<OrderDetails> orders = new LinkedHashSet<>();
 
 }
