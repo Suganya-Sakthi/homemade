@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -31,6 +32,7 @@ public class Chef {
     String email;
 
     @NonNull
+    @Setter(AccessLevel.NONE)
     String password;
 
     @NonNull
@@ -51,12 +53,16 @@ public class Chef {
     public Chef(@NonNull String name, @NonNull String email, @NonNull String password, @NonNull String phoneNumber, @NonNull String address, @NonNull String city, String state, @NonNull int zipcode) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
+    }
+
+    public void setPassword(String password) {
+        this.password =  new BCryptPasswordEncoder().encode(password);
     }
 
     @ToString.Exclude

@@ -9,6 +9,8 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor

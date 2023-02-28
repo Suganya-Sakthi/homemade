@@ -1,5 +1,6 @@
 package org.perscholas.homemade.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.perscholas.homemade.dao.ChefRepoI;
 import org.perscholas.homemade.dao.ProductRepoI;
 import org.perscholas.homemade.models.Chef;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@Slf4j
 public class ChefController {
 
     ChefRepoI chefRepoI;
@@ -38,16 +40,12 @@ public class ChefController {
     }
 
     @GetMapping("/chefLogin")
-    public String showChefLogin(@ModelAttribute("chef") Chef chef, Model model) {
-        model.addAttribute("chef",new Chef());
+    public String showChefLogin() {
+        //model.addAttribute("chef",new Chef());
+        log.warn("Chef Login Controller");
         return "chefLogin";
     }
 
-    @PostMapping("/chefLogin")
-    public String showProductPage() {
-
-        return "redirect:/chefProduct";
-    }
 
     @GetMapping("/chefProduct")
     public String showChefProduct(){

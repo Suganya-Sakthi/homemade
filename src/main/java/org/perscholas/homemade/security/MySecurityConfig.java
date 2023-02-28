@@ -51,7 +51,7 @@ public class MySecurityConfig {
                         .loginPage("/chefLogin")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .loginProcessingUrl("/ChefLogin/processing")
+                        .loginProcessingUrl("/p")
                         .defaultSuccessUrl("/chefProduct")
                         .failureUrl("/chefLogin?error=true")
                         .permitAll()
