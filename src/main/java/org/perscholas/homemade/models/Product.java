@@ -37,7 +37,7 @@ public class Product {
     double price;
 
     @NonNull
-    Blob image;
+    String imageUrl;
 
     @NonNull
     LocalDate date;
@@ -47,11 +47,12 @@ public class Product {
     private Chef chef;
 
 
-    public Product(@NonNull String name, @NonNull String category, @NonNull double price, @NonNull LocalDate date) {
+    public Product(@NonNull String name, @NonNull String category, @NonNull double price, @NonNull LocalDate date, Chef chef) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.date = date;
+        this.chef = chef;
     }
 
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})

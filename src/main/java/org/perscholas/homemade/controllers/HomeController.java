@@ -5,19 +5,16 @@ import org.perscholas.homemade.dao.ChefRepoI;
 import org.perscholas.homemade.dao.CustomerRepoI;
 import org.perscholas.homemade.dao.OrderRepoI;
 import org.perscholas.homemade.dao.ProductRepoI;
-import org.perscholas.homemade.models.Chef;
-import org.perscholas.homemade.models.Customer;
-import org.perscholas.homemade.models.OrderDetails;
-import org.perscholas.homemade.models.Product;
+import org.perscholas.homemade.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Slf4j
+@SessionAttributes("order")
 public class HomeController {
     ChefRepoI chefRepoI;
     OrderRepoI orderRepoI;
@@ -33,12 +30,40 @@ public class HomeController {
 
     }
 
-    @GetMapping("/index")
-    public String showIndex(Model model) {
-        model.addAttribute("products", productRepoI.findAll());
-        return "index";
+    @ModelAttribute("order")
+    public OrderDetails shoppingCart() {
+        return new OrderDetails();
+    }
+    @GetMapping("/addToCart")
+    public String addToCart(final Model model, @ModelAttribute("order") OrderDetails order, final Product product){
+
+        if (order != null) {
+            //add product to the shopping cart list
+            order.addProduct(product);
+            model.addAttribute("order", order);
+        } else {
+            OrderDetails order1 = new OrderDetails();
+            order1.addProduct(product);
+            model.addAttribute("order", order1);
+        }
+
+        return "redirect:/index";
     }
 
+
+   @GetMapping(value = {"/", "index"})
+    public ModelAndView showIndex(Model model, @ModelAttribute("order") OrderDetails order) {
+        model.addAttribute("products", productRepoI.findAll());
+        if(order !=null){
+            model.addAttribute("order",order);
+        }else{
+            model.addAttribute("order", new OrderDetails());
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index");
+        mv.getModel();
+        return mv;
+    }
 
 
     @GetMapping("/success")
@@ -46,11 +71,8 @@ public class HomeController {
         return "success";
     }
 
-
     @PostMapping("/checkout")
-    public String checkout(@ModelAttribute("customer") Customer customer) {
-
-        customerRepoI.save(customer);
+    public String checkout() {
         return "redirect:/success";
     }
 
@@ -62,7 +84,9 @@ public class HomeController {
     }
 
     @GetMapping("/checkout")
-    public String showCheckout() {
+    public String showCheckout(@SessionAttribute("order") OrderDetails order, final Model model) {
+        model.addAttribute("products",order.getProducts());
+        log.warn(order.getProducts().toString());
         return "checkout";
     }
 

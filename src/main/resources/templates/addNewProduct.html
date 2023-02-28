@@ -7,7 +7,70 @@
 <!-- Header-->
 <div th:replace="fragments/header :: header"/>
 <!-- Section-->
+<section class="h-100" style="background-color:lightblue;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img alt="Sample photo"
+                                 class="img-fluid"
+                                 src="./images/chef4.jpg"
+                            />
 
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase">Add Product form</h3>
+                                <form method="post" th:action="@{/addNewProduct}">
+                                    <div class="row">
+                                        <div class="col-md-7 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="name">Product Name</label>
+                                                <input class="form-control form-control-lg" id="name" name="name"
+                                                       required
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-10 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="price">Price</label>
+                                                <input class="form-control form-control-lg" name="price" id="price" type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 mb-4">
+                                            <label for="category">City:</label>
+                                            <select class="form-control" id="category" name="category" required>
+                                                <option value="">--Select Category--</option>
+                                                <option value="Italian">Italian</option>
+                                                <option value="American">American</option>
+                                                <option value="Indian">Indian</option>
+                                                <option value="Middle-Eastern">Middle-Eastern</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="date" class="form-label">Date of Birth</label>
+                                        <input type="date" id="date" name="date" class="form-control"
+                                                placeholder="Date" required />
+
+                                    </div>
+                                    <button class="btn btn-primary" type="submit" value="Submit">Add Product</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>

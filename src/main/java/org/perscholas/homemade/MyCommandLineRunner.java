@@ -4,10 +4,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.perscholas.homemade.dao.ChefRepoI;
-import org.perscholas.homemade.dao.CustomerRepoI;
-import org.perscholas.homemade.dao.OrderRepoI;
-import org.perscholas.homemade.dao.ProductRepoI;
+import org.perscholas.homemade.dao.*;
+import org.perscholas.homemade.models.AuthGroup;
 import org.perscholas.homemade.models.Chef;
 import org.perscholas.homemade.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +28,15 @@ public class MyCommandLineRunner implements CommandLineRunner {
     CustomerRepoI customerRepoI;
     OrderRepoI orderRepoI;
     ProductRepoI productRepoI;
+
+    AuthGroupRepoI authGroupRepoI;
     @Autowired
-    public MyCommandLineRunner(ChefRepoI chefRepoI, CustomerRepoI customerRepoI, OrderRepoI orderRepoI, ProductRepoI productRepoI) {
+    public MyCommandLineRunner(ChefRepoI chefRepoI, CustomerRepoI customerRepoI, OrderRepoI orderRepoI, ProductRepoI productRepoI, AuthGroupRepoI authGroupRepoI) {
         this.chefRepoI = chefRepoI;
         this.customerRepoI = customerRepoI;
         this.orderRepoI = orderRepoI;
         this.productRepoI = productRepoI;
+        this.authGroupRepoI=authGroupRepoI;
     }
     @PostConstruct
     void created(){
@@ -56,11 +57,11 @@ public class MyCommandLineRunner implements CommandLineRunner {
         chefRepoI.saveAndFlush(c3);
         chefRepoI.saveAndFlush(c4);
 
-        Product p1=new Product("Pasta","Italian",10.00,LocalDate.of(2023,03,23));
-        Product p2=new Product("Chicken Burger","American",20.00, LocalDate.of(2023,02,23));
-        Product p3=new Product("Chicken Sandwich","American",15.00,LocalDate.of(2023,02,26));
-        Product p4=new Product("Samosa","Indian",10.00,LocalDate.of(2023,02,23));
-        Product p5=new Product("Salad","American",10.00,LocalDate.of(2023,02,27));
+        Product p1=new Product("Pasta","Italian",10.00,LocalDate.of(2023,03,23),c1);
+        Product p2=new Product("Chicken Burger","American",20.00, LocalDate.of(2023,02,23),c2);
+        Product p3=new Product("Chicken Sandwich","American",15.00,LocalDate.of(2023,02,26),c3);
+        Product p4=new Product("Samosa","Indian",10.00,LocalDate.of(2023,02,23),c4);
+        Product p5=new Product("Salad","American",10.00,LocalDate.of(2023,02,27),c1);
 
         productRepoI.saveAndFlush(p1);
         productRepoI.saveAndFlush(p2);
@@ -68,9 +69,9 @@ public class MyCommandLineRunner implements CommandLineRunner {
         productRepoI.saveAndFlush(p4);
         productRepoI.saveAndFlush(p5);
 
+        AuthGroup authGroup1 = new AuthGroup("james@gmail.com", "ROLE_CHEF");
 
-
-
+        authGroupRepoI.save(authGroup1);
 
 
 

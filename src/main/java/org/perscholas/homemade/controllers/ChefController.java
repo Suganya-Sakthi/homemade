@@ -8,20 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
-@SessionAttributes("chef")
 public class ChefController {
 
-
-
-    @ModelAttribute("chef")
-    public Chef setupChef(){
-        return new Chef();
-    }
     ChefRepoI chefRepoI;
-
     ProductRepoI productRepoI;
 
 
@@ -47,30 +39,29 @@ public class ChefController {
 
     @GetMapping("/chefLogin")
     public String showChefLogin(@ModelAttribute("chef") Chef chef, Model model) {
-        model.addAttribute("chef",chef);
+        model.addAttribute("chef",new Chef());
         return "chefLogin";
     }
 
-
     @PostMapping("/chefLogin")
-    public String showProductPage(@ModelAttribute("chef") Chef chef, Model model) {
-        model.addAttribute(chef.getProducts());
+    public String showProductPage() {
+
         return "redirect:/chefProduct";
-    }
-    @GetMapping("/addNewProduct")
-    public String showAddNewProductPage(){
-        return "addNewProduct";
     }
 
     @GetMapping("/chefProduct")
-    public String showChefProduct(Model model){
+    public String showChefProduct(){
         return "chefProduct";
     }
-   /* @PostMapping("/chefProduct")
-    public String product(@ModelAttribute("product") Product product) {
+    @GetMapping("/addNewProduct")
+    public String showAddNewProductPage(Model model){
+        model.addAttribute("product", new Product());
+        return "addNewProduct";
+    }
+    @PostMapping("/addNewProduct")
+    public String addNewProductPage(@ModelAttribute("product") Product product, @ModelAttribute("theChef") Chef chef){
+        product.setChef(chef);
         productRepoI.save(product);
-        return "redirect:/success";
-    }*/
-
-
+        return "chefProduct";
+    }
 }

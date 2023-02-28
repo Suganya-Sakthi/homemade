@@ -40,6 +40,16 @@ public class OrderDetails {
             inverseJoinColumns = @JoinColumn(name = "products_id"))
     private Set<Product> products = new LinkedHashSet<>();
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    //helper method
+    public void addProduct(Product product){
+        products.add(product);
+        product.getOrders().add(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
