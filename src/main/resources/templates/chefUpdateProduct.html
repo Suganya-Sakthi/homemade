@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Head-->
+<div th:replace="fragments/head :: head"/>
+<body style="background-color:lightblue">
+<div th:replace="fragments/nav :: nav"/>
+<!-- Header-->
+<div th:replace="fragments/header :: header"/>
+<!-- Section-->
+<section class="h-100" style="background-color:lightblue;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card card-registration my-4">
+          <div class="row g-0">
+            <div class="col-xl-6 d-none d-xl-block">
+              <img alt="Sample photo"
+                   class="img-fluid"
+                   th:src="@{./images/chef4.jpg}"
+              />
+            </div>
+            <div class="col-xl-6">
+              <div class="card-body p-md-5 text-black">
+                <h3 class="mb-5 text-uppercase">Update Product form</h3>
+                <form method="post" th:action="@{/updateProduct}">
+                  <div class="row">
+                    <div class="col-md-7 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="name">Product Name</label>
+                        <input class="form-control form-control-lg" id="name" name="name"
+                               required
+                               type="text" th:value="${product.name}" readonly/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="price">Price</label>
+                        <input class="form-control form-control-lg" name="price" id="price" type="text"  th:value="${product.price}"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6 mb-4">
+                      <label for="category">City:</label>
+                      <select class="form-control" id="category" name="category" th:selectedvalue="${product.category}"  required>
+                        <option value="">--Select Category--</option>
+                        <option value="Italian">Italian</option>
+                        <option value="American">American</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Middle-Eastern">Middle-Eastern</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="date" class="form-label">Date of Availability</label>
+                    <input type="date" id="date" name="date" class="form-control"
+                           placeholder="Date" th:value="${product.date}" required />
+                  </div>
+                  <button class="btn btn-primary" type="submit" value="Submit">Update Product</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

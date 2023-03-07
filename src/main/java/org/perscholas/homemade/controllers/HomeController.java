@@ -1,68 +1,49 @@
 package org.perscholas.homemade.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.perscholas.homemade.dao.ChefRepoI;
-import org.perscholas.homemade.dao.CustomerRepoI;
-import org.perscholas.homemade.dao.OrderRepoI;
-import org.perscholas.homemade.dao.ProductRepoI;
+import org.hibernate.internal.util.MathHelper;
+import org.perscholas.homemade.dao.*;
 import org.perscholas.homemade.models.*;
+import org.perscholas.homemade.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @Slf4j
-@SessionAttributes("order")
 public class HomeController {
     ChefRepoI chefRepoI;
     OrderRepoI orderRepoI;
     CustomerRepoI customerRepoI;
     ProductRepoI productRepoI;
+    OrderService orderService;
 
     @Autowired
-    public HomeController(ChefRepoI chefRepoI, OrderRepoI orderRepoI, CustomerRepoI customerRepoI, ProductRepoI productRepoI) {
+    public HomeController(ChefRepoI chefRepoI, OrderRepoI orderRepoI, CustomerRepoI customerRepoI, ProductRepoI productRepoI, OrderService orderService) {
         this.chefRepoI = chefRepoI;
         this.orderRepoI = orderRepoI;
         this.customerRepoI = customerRepoI;
         this.productRepoI = productRepoI;
+        this.orderService=orderService;
 
     }
 
-    @ModelAttribute("order")
-    public OrderDetails shoppingCart() {
-        return new OrderDetails();
-    }
-    @GetMapping("/addToCart")
-    public String addToCart(final Model model, @ModelAttribute("order") OrderDetails order, final Product product){
-
-        if (order != null) {
-            //add product to the shopping cart list
-            order.addProduct(product);
-            model.addAttribute("order", order);
-        } else {
-            OrderDetails order1 = new OrderDetails();
-            order1.addProduct(product);
-            model.addAttribute("order", order1);
-        }
-
+    @GetMapping("/addToCart/{id}")
+    public String addToCart(@PathVariable(name = "id") int id){
+        orderService.addToCart(id);
         return "redirect:/index";
     }
 
 
    @GetMapping(value = {"/", "index"})
-    public ModelAndView showIndex(Model model, @ModelAttribute("order") OrderDetails order) {
+    public String showIndex(Model model) {
         model.addAttribute("products", productRepoI.findAll());
-        if(order !=null){
-            model.addAttribute("order",order);
-        }else{
-            model.addAttribute("order", new OrderDetails());
-        }
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("index");
-        mv.getModel();
-        return mv;
+       model.addAttribute("count",orderRepoI.count());
+        return "index";
     }
 
 
@@ -77,17 +58,32 @@ public class HomeController {
     }
 
 
-    @PostMapping("/addOrder")
-    public String addOrder(@ModelAttribute("order") OrderDetails order) {
-        orderRepoI.save(order);
-        return "index";
+    @GetMapping("/checkout")
+    public String showCheckout(Model model) {
+        model.addAttribute("orders", orderRepoI.findAll());
+        model.addAttribute("count",orderRepoI.count());
+        Double totalPrice=0.0;
+        if( orderRepoI.sumTotalPrice()!=null) {
+           totalPrice = orderRepoI.sumTotalPrice();
+        }
+        model.addAttribute("subtotal",totalPrice);
+        return "checkout";
     }
 
-    @GetMapping("/checkout")
-    public String showCheckout(@SessionAttribute("order") OrderDetails order, final Model model) {
-        model.addAttribute("products",order.getProducts());
-        log.warn(order.getProducts().toString());
-        return "checkout";
+    @GetMapping("/updateOrderAdd/{id}")
+    public String updateOrderAdd(Model model, @PathVariable(name = "id") int id){
+        orderService.addQuantity(id);
+        return "redirect:/checkout";
+    }
+    @GetMapping("/updateOrderDelete/{id}")
+    public String updateOrderDelete(Model model, @PathVariable(name = "id") int id){
+        orderService.removeQuantity(id);
+        return "redirect:/checkout";
+    }
+    @GetMapping("/deleteOrder/{id}")
+    public String deleteOrder(Model model, @PathVariable(name = "id") int id){
+        orderService.deleteOrder(id);
+        return "redirect:/checkout";
     }
 
 }

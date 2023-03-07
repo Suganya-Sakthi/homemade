@@ -20,16 +20,16 @@ public class MyControllerAdvice {
     ChefRepoI chefRepoI;
 
     @ModelAttribute
-    public void theStudent(Model model, HttpServletRequest request, HttpSession http){
+    public void theChef(Model model, HttpServletRequest request, HttpSession http){
         Principal p = request.getUserPrincipal();
-        Chef ss = null;
+        Chef chef = null;
         if(p != null){
-            ss =  chefRepoI.findByEmail(p.getName()).get();
-            http.setAttribute("theChef", ss);
+            chef =  chefRepoI.findByEmail(p.getName()).get();
+            http.setAttribute("theChef", chef);
             log.warn("session attr theChef in advice controller  " + http.getAttribute("theChef").toString());
 
         }
-        model.addAttribute("theChef", ss);
+        model.addAttribute("theChef", chef);
     }
 
 }

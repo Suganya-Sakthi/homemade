@@ -10,19 +10,21 @@
 <section class="h-100" style="background-color:lightblue;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
+
             <div class="col">
                 <div class="card card-registration my-4">
+
                     <div class="row g-0">
+                        <h3 align="center" class="mb-5 text-uppercase">Chef registration form</h3>
                         <div class="col-xl-6 d-none d-xl-block">
                             <img alt="Sample photo"
                                  class="img-fluid"
-                                 src="./images/chef4.jpg"
+                                 src="./images/i1.jpg"
                             />
 
                         </div>
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
-                                <h3 class="mb-5 text-uppercase">Chef registration form</h3>
                                 <form method="post" th:action="@{/register}">
                                     <div class="row">
                                         <div class="col-md-7 mb-4">
@@ -76,8 +78,6 @@
                                                 <option value="houston">Houston</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="form-group col-md-5 mb-4">
                                             <label for="state">State:</label>
                                             <select class="form-control" id="state" name="state" required>

@@ -23,7 +23,7 @@
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
                                 <h3 class="mb-5 text-uppercase">Add Product form</h3>
-                                <form method="post" th:action="@{/addNewProduct}">
+                                <form method="post" th:action="@{/addNewProduct}" enctype="multipart/form-data" accept="image/png, image/jpeg">
                                     <div class="row">
                                         <div class="col-md-7 mb-4">
                                             <div class="form-outline">
@@ -36,15 +36,15 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-10 mb-4">
+                                        <div class="col-md-4 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="price">Price</label>
-                                                <input class="form-control form-control-lg" name="price" id="price" type="text"/>
+                                                <input class="form-control form-control-lg" name="price" id="price" type="text" th:value="${product.price}"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-5 mb-4">
+                                        <div class="form-group col-md-6 mb-4">
                                             <label for="category">City:</label>
                                             <select class="form-control" id="category" name="category" required>
                                                 <option value="">--Select Category--</option>
@@ -55,11 +55,21 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="date" class="form-label">Date of Birth</label>
+                                    <div class="col-md-6">
+                                        <label for="date" class="form-label">Date of Availability</label>
                                         <input type="date" id="date" name="date" class="form-control"
                                                 placeholder="Date" required />
 
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file">Upload Image</label>
+                                        <input
+                                                type="file"
+                                                class="form-control"
+                                                id="file"
+                                                name="file"
+
+                                        />
                                     </div>
                                     <button class="btn btn-primary" type="submit" value="Submit">Add Product</button>
                                 </form>

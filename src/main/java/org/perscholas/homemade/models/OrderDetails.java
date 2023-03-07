@@ -5,9 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @AllArgsConstructor
 @Entity
@@ -21,45 +19,44 @@ import java.util.Set;
 public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     Integer id;
+
 
     @NonNull
     int quantity;
 
+
     @NonNull
-    float totalPrice;
+    double totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ToString.Exclude
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinTable(name = "order_products",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "products_id"))
-    private Set<Product> products = new LinkedHashSet<>();
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    //helper method
-    public void addProduct(Product product){
-        products.add(product);
-        product.getOrders().add(this);
+    public OrderDetails(int quantity,double totalPrice,Product product) {
+        this.quantity=quantity;
+        this.totalPrice=totalPrice;
+        this.product=product;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderDetails order = (OrderDetails) o;
-        return quantity == order.quantity && Float.compare(order.totalPrice, totalPrice) == 0 && Objects.equals(id, order.id) && Objects.equals(customer, order.customer) && Objects.equals(products, order.products);
+        OrderDetails that = (OrderDetails) o;
+        return quantity == that.quantity && Double.compare(that.totalPrice, totalPrice) == 0 && id.equals(that.id) && Objects.equals(customer, that.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantity, totalPrice, customer, products);
+        return Objects.hash(id, quantity, totalPrice, customer);
     }
 }
+
+

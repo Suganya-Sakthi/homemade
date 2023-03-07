@@ -36,8 +36,6 @@ public class Product {
     @NonNull
     double price;
 
-    @NonNull
-    String imageUrl;
 
     @NonNull
     LocalDate date;
@@ -46,6 +44,12 @@ public class Product {
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OrderDetails> orders = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    Image image;
 
     public Product(@NonNull String name, @NonNull String category, @NonNull double price, @NonNull LocalDate date, Chef chef) {
         this.name = name;
@@ -53,10 +57,10 @@ public class Product {
         this.price = price;
         this.date = date;
         this.chef = chef;
+
     }
 
-    @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    private Set<OrderDetails> orders = new LinkedHashSet<>();
+
 
     @Override
     public boolean equals(Object o) {

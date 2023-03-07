@@ -47,7 +47,9 @@
                                                                                                               style="color: #393f81;">Register here</a></p>
 
                                 </form>
-
+                                <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                                    Username or Password is incorrect
+                                </div>
                             </div>
                         </div>
                     </div>

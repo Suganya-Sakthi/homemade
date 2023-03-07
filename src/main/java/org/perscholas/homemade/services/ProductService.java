@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.perscholas.homemade.dao.ProductRepoI;
+import org.perscholas.homemade.models.OrderDetails;
 import org.perscholas.homemade.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,6 +27,17 @@ public class ProductService {
 
     public List<Product> findAll(){
         return productRepoI.findAll();
+    }
+
+    public Product createOrUpdate(Product product) {
+            log.warn(product.toString());
+            Product originalProduct = productRepoI.findByName(product.getName()).get();
+            log.warn(originalProduct.toString());
+            originalProduct.setCategory(product.getCategory());
+            originalProduct.setPrice(product.getPrice());
+            originalProduct.setDate(product.getDate());
+            return productRepoI.save(originalProduct);
+
     }
 
 }
