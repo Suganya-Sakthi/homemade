@@ -150,7 +150,7 @@ public class HomeController {
             totalPrice.add(o.getTotalPrice());
         }
 
-        emailDetails.setMsgBody("Dear customer,\n Thank you for shopping with us.\n" +
+        emailDetails.setMsgBody("Dear customer,\n\n Thank you for shopping with us.\n\n" +
                 " Product Name\t Quantity Ordered \t Total Price\n"
                 + productName.toString()
                 +"\t"+quantity.toString()
