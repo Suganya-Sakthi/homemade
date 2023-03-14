@@ -29,6 +29,11 @@ public class OrderDetails {
 
     @NonNull
     double totalPrice;
+    public enum OrderStatus {
+        PENDING, COMPLETED, INVALID;
+    }
+    @NonNull
+    OrderStatus status;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -39,10 +44,11 @@ public class OrderDetails {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderDetails(int quantity,double totalPrice,Product product) {
+    public OrderDetails(int quantity,double totalPrice, OrderStatus status, Product product) {
         this.quantity=quantity;
         this.totalPrice=totalPrice;
         this.product=product;
+        this.status=status;
     }
 
     @Override

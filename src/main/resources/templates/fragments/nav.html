@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Nav Section</title>
@@ -15,23 +15,26 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/index}">Home</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li><a class="dropdown-item" th:href="@{/index}">All Products</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        <li><a class="dropdown-item" th:href="@{/indexByPrice}">By Lowest Price</a></li>
+                        <li><a class="dropdown-item" th:href="@{/indexByDate}">By Latest Date</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/register}">Chef Sign-Up</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/chefLogin}">Chef Log-In</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About Us</a></li>
+<!--                <li class="nav-item"><a class="nav-link" th:href="@{/register}">Chef Sign-Up</a></li>-->
+                <li class="nav-item"><a class="nav-link" sec:authorize="!hasRole('CHEF')" th:href="@{/chefLogin}">Log-In/Sign-Up</a></li>
+                <li class="nav-item"><a class="nav-link" sec:authorize="hasRole('CHEF')" th:href="@{/logout}">Log-Out</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/aboutUs}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" sec:authorize="hasRole('CHEF')" th:href="@{/chefProduct}">My Products</a></li>
             </ul>
+            <h4  th:if="${chefName}!=null" th:text="'Welcome '+${chefName}+'!'+' '+' '" ></h4>
             <form th:action="@{/checkout}"  class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill" ></span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" th:text="${count}==null?'0':${count}" ></span>
                 </button>
             </form>
         </div>

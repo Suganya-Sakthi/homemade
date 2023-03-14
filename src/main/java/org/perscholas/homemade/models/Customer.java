@@ -29,9 +29,6 @@ public class Customer {
     @NonNull
     String email;
 
-    @NonNull
-    String phoneNumber;
-
     @ToString.Exclude
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderDetails> orders = new LinkedHashSet<>();

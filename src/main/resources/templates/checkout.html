@@ -50,7 +50,7 @@
                                   <td class="actions" data-th="">
                                       <div class="text-right">
 
-                                          <a class="btn btn-outline-dark mt-auto" th:href="@{/deleteOrder/}+${order.id}">Delete</a>
+                                          <a class="btn btn-outline-dark mt-auto"   th:href="@{/deleteOrder/}+${order.id}">Delete</a>
                                       </div>
                                   </td>
                               </tr>
@@ -65,10 +65,10 @@
               </div>
               <div class="row mt-4 d-flex align-items-center">
                   <div class="col-sm-6 order-md-2 text-right">
-                      <a class="btn btn-primary mb-4 btn-lg pl-5 pr-5" href="catalog.html">Checkout</a>
+                      <a class="btn btn-primary mb-4 btn-lg pl-5 pr-5" th:href="@{/confirm}">Checkout</a>
                   </div>
                   <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-                      <a href="catalog.html">
+                      <a th:href="@{/index}">
                           <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
                   </div>
               </div>

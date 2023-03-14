@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Head-->
+<div th:replace="fragments/head :: head"/>
+<body style="background-color:lightblue">
+<div th:replace="fragments/nav :: nav"/>
+<!-- Header-->
+<div th:replace="fragments/header :: header"/>
+
+<!-- Section-->
+
+<h4>Know about Homemade - a food selling and ordering app</h4>
+<p>Homemade is an app which gives opportunity for all kinds of people to
+    earn sitting at home if they are good at cooking delicious food for their loved ones</p>
+
+<p id="mypara">
+
+</p>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+<!-- Footer-->
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

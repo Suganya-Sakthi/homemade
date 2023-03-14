@@ -1,13 +1,10 @@
 package org.perscholas.homemade.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -28,25 +25,35 @@ public class Product {
     Integer id;
 
     @NonNull
+    @NotBlank(message = "Please Enter a name")
     String name;
 
     @NonNull
+    @NotBlank(message = "Please Enter a Category")
     String category;
 
     @NonNull
     double price;
 
-
     @NonNull
+    @FutureOrPresent(message = "Choose a valid date")
     LocalDate date;
-
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<OrderDetails> orders = new LinkedHashSet<>();
 
+    //Helper Methods to Add and Remove orders
+    public void addOrders(OrderDetails order){
+        orders.add(order);
+    }
+    public void removeOrders(OrderDetails order) {
+        orders.remove(order);
+    }
     @ToString.Exclude
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     Image image;
@@ -60,18 +67,16 @@ public class Product {
 
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id != null && Objects.equals(id, product.id);
+        return Double.compare(product.price, price) == 0 && name.equals(product.name) && category.equals(product.category) && date.equals(product.date);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(name, category, price, date);
     }
 }

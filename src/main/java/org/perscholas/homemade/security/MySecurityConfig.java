@@ -43,7 +43,7 @@ public class MySecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/","/index","/chefLogin", "/chefRegister","/checkout","/css/*","/js/*","/images/*","/products/*","/addToCart","/register","/addToCart/{id}","/updateOrderAdd/{id}","/updateOrderDelete/{id}","/deleteOrder/{id}").permitAll()
+                        .requestMatchers("/","/index","/chefLogin", "/chefRegister","/checkout","/css/*","/js/*","/images/*","/products/*","/addToCart","/register","/addToCart/{id}","/updateOrderAdd/{id}","/updateOrderDelete/{id}","/deleteOrder/{id}","/success","/indexByPrice","/indexByDate","/aboutUs","/confirm").permitAll()
                         .requestMatchers("/chefProduct","/addNewProduct","/updateProduct","/deleteProduct","/chefUpdateProduct","/updateForm").hasRole("CHEF")
                         .anyRequest().authenticated()
                 )

@@ -25,14 +25,14 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
-                                <form method="post" th:action="@{/register}">
+                                <form method="post" th:action="@{/register}" th:object="${chef}">
                                     <div class="row">
                                         <div class="col-md-7 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="name">Name</label>
                                                 <input class="form-control form-control-lg" id="name" name="name"
-                                                       required
-                                                       type="text"/>
+                                                       type="text" th:field="*{name}"/>
+                                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error text-warning"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -41,57 +41,64 @@
                                         <div class="col-md-10 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="email">Email</label>
-                                                <input class="form-control form-control-lg" name="email" id="email" type="text"/>
+                                                <input class="form-control form-control-lg" name="email" id="email"
+                                                       type="text" th:field="*{email}"/>
+                                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error text-warning"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-5 mb-4">
                                             <label for="password">Password:</label>
-                                            <input class="form-control" id="password" name="password" required
-                                                   type="password">
+                                            <input class="form-control" id="password" name="password"
+                                                   type="password" th:field="*{password}">
+                                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error text-warning"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-5 mb-4">
                                             <label for="phoneNumber">Phone Number:</label>
                                             <input class="form-control" id="phoneNumber" name="phoneNumber"
-                                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                                   required type="tel">
+                                                    type="tel" th:field="*{phoneNumber}">
+                                            <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error text-warning"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-10 mb-4">
                                             <label for="address">Address:</label>
-                                            <input class="form-control" id="address" name="address" required
-                                                   type="text">
+                                            <input class="form-control" id="address" name="address"
+                                                   type="text" th:field="*{address}">
+                                            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error text-warning"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-5 mb-4">
                                             <label for="city">City:</label>
-                                            <select class="form-control" id="city" name="city" required>
+                                            <select class="form-control" id="city" name="city" th:field="*{city}">
                                                 <option value="">--Select City--</option>
                                                 <option value="troy">Troy</option>
                                                 <option value="sterlingheights">Sterling Heights</option>
                                                 <option value="dallas">Dallas</option>
                                                 <option value="houston">Houston</option>
                                             </select>
+                                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error text-warning"></span>
                                         </div>
                                         <div class="form-group col-md-5 mb-4">
                                             <label for="state">State:</label>
-                                            <select class="form-control" id="state" name="state" required>
+                                            <select class="form-control" id="state" name="state" th:field="*{state}">
                                                 <option value="">--Select State--</option>
                                                 <option value="michigan">Michigan</option>
                                                 <option value="texas">Texas</option>
                                             </select>
+                                            <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="error text-warning"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-5 mb-4">
                                             <label for="zipcode">Zipcode:</label>
-                                            <input class="form-control" id="zipcode" name="zipcode" pattern="[0-9]{5}"
-                                                   required type="text">
+                                            <input class="form-control" id="zipcode" name="zipcode"
+                                                    type="text" th:field="*{zipcode}">
+                                            <span th:if="${#fields.hasErrors('zipcode')}" th:errors="*{zipcode}" class="error text-warning"></span>
                                         </div>
                                     </div>
                                     <button class="btn btn-primary" type="submit" value="Submit">Sign In</button>

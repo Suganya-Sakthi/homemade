@@ -23,14 +23,14 @@
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
                                 <h3 class="mb-5 text-uppercase">Add Product form</h3>
-                                <form method="post" th:action="@{/addNewProduct}" enctype="multipart/form-data" accept="image/png, image/jpeg">
+                                <form method="post" th:action="@{/addNewProduct}" th:object="${product}" enctype="multipart/form-data" accept="image/png, image/jpeg">
                                     <div class="row">
                                         <div class="col-md-7 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="name">Product Name</label>
                                                 <input class="form-control form-control-lg" id="name" name="name"
-                                                       required
-                                                       type="text"/>
+                                                       type="text" th:field="*{name}"   />
+                                               <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error text-warning"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -39,27 +39,30 @@
                                         <div class="col-md-4 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="price">Price</label>
-                                                <input class="form-control form-control-lg" name="price" id="price" type="text" th:value="${product.price}"/>
+                                                <input class="form-control form-control-lg" name="price" id="price" type="text"
+                                                      />
+                                       <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error text-warning"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6 mb-4">
                                             <label for="category">City:</label>
-                                            <select class="form-control" id="category" name="category" required>
+                                            <select class="form-control" id="category" name="category" >
                                                 <option value="">--Select Category--</option>
                                                 <option value="Italian">Italian</option>
                                                 <option value="American">American</option>
                                                 <option value="Indian">Indian</option>
                                                 <option value="Middle-Eastern">Middle-Eastern</option>
                                             </select>
+                                            <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error text-warning"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="date" class="form-label">Date of Availability</label>
                                         <input type="date" id="date" name="date" class="form-control"
-                                                placeholder="Date" required />
-
+                                                placeholder="Date" />
+                                       <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error text-warning"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="file">Upload Image</label>
@@ -68,7 +71,6 @@
                                                 class="form-control"
                                                 id="file"
                                                 name="file"
-
                                         />
                                     </div>
                                     <button class="btn btn-primary" type="submit" value="Submit">Add Product</button>
